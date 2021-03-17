@@ -10,7 +10,32 @@ class Partido(models.Model):
     - goles_eq1 (positive int)
     - goles_eq2 (positive int)
     """
-    pass
+    id_encuentro = models.ForeignKey(
+        'Encuentro',
+        on_delete = models.CASCADE,
+        help_text = 'Datos del encuentro',
+        verbose_name = 'Encuentro',
+    )
+
+    goles_eq1 = models.PositiveIntegerField(
+        default=0, 
+        help_text = 'Goles del equipo 1',
+        verbose_name = 'Goles Equipo 1',
+    )
+
+    goles_eq2 = models.PositiveIntegerField(
+        default=0, 
+        help_text = 'Goles del equipo 2',
+        verbose_name = 'Goles Equipo 2',
+    )
+
+    def __str__(self):
+        return self.id_encuentro
+
+    class Meta:
+        verbose_name = 'Partido'
+        verbose_name_plural = 'Partidos'
+
 
 class Encuentro(models.Model):
     """
@@ -22,14 +47,74 @@ class Encuentro(models.Model):
     - fecha (datefield)
     - estado (boolean)
     """
-    pass
+    id_equipo1 = models.ForeignKey(
+        'equipo.models.Equipo',
+        on_delete = models.CASCADE,
+        help_text = 'Datos del equipo que jugó el partido',
+        verbose_name = 'Equipo N°1',
+    )
+
+    id_equipo2 = models.ForeignKey(
+        'equipo.models.Equipo',
+        on_delete = models.CASCADE,
+        help_text = 'Datos del equipo que jugó el partido',
+        verbose_name = 'Equipo N°2',
+    )
+
+    id_sede = models.ForeignKey(
+        'Sede',
+        on_delete = models.CASCADE,
+        help_text = 'Sede en la que se jugó el encuentro',
+        verbose_name = 'Sede',
+    )
+
+    id_campeonato = models.ForeignKey(
+        'campeonato.models.Campeonato',
+        on_delete = models.CASCADE,
+        help_text = 'Nombre del campeonato que se está jugando',
+        verbose_name = 'Campeonato',
+    )
+
+    fecha_encuentro = models.DateField(
+        verbose_name = 'Fecha del Encuentro,
+        help_text = 'Fecha en la que se jugó el partido',
+    )
+
+    ESTADOS = (
+        ('P', 'Por Jugar'),
+        ('J', 'Jugado'),
+        ('S', 'Suspendido'),
+    )
+
+    estado = models.CharField(
+        max_length = 1,
+        choices = ESTADOS,
+    )
+
+    def __str__(self):
+        return '{} vs {}'.format(self.id_equipo1, self.id_equipo2)
+
+    class Meta:
+        verbose_name = 'Encuentro'
+        verbose_name_plural = 'Encuentros'
 
 class Sede(models.Model):
     """
     Datos:
     - nombre (charfield)
     """
-    pass
+    nombre_sede = models.CharField(
+        max_length = 80, 
+        help_text = 'Sede donde se juega el partido',
+        verbose_name = 'Nombre Sede',
+    )
+
+    def __str__(self):
+        return self.nombre_sede
+
+    class Meta:
+        verbose_name = 'Sede'
+        verbose_name_plural = 'Sedes'
 
 class Goles(models.Model):
     """
@@ -37,4 +122,23 @@ class Goles(models.Model):
     - id_jugador (FK jugador)
     - id_partido (FK partido)
     """
-    pass
+    id_jugador = models.ForeignKey(
+        'equipo.models.Jugador',
+        on_delete = models.CASCADE,
+        help_text = 'Jugador',
+        verbose_name = 'Gol anotado por el jugador',
+    )
+
+    id_partido = models.ForeignKey(
+        'Partido',
+        on_delete = models.CASCADE,
+        help_text = 'Partido donde se convirtio el gol',
+        verbose_name = 'Partido',
+    )
+
+    def __str__(self):
+        return self.id_jugador
+
+    class Meta:
+        verbose_name = 'Gol'
+        verbose_name_plural = 'Goles'

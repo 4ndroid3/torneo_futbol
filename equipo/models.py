@@ -11,7 +11,26 @@ class Equipo(models.Model):
     - nombre (varchar)
     - logotipo (imagefield)
     """
-    pass
+    nombre_equipo = models.CharField(
+        max_length = 80,
+        help_text = 'Nombre del equipo participante',
+        verbose_name = 'Nombre Equipo'
+    )
+
+    logo_equipo = models.ImageField(
+        upload_to = 'logos_equipos', 
+        blank = True,
+        null=True,
+        help_text = 'Logo del equipo',
+        verbose_name = 'Logo / Imagen',
+    )
+
+    def __str__(self):
+        return self.nombre_equipo
+
+    class Meta:
+        verbose_name = 'Equipo'
+        verbose_name_plural = 'Equipos'
 
 class Jugador_Equipo(models.Model):
     """Modelo intermedio para vincular a un jugador con su equipo
@@ -19,7 +38,15 @@ class Jugador_Equipo(models.Model):
     Datos:
     - id_equipo (FK equipo)
     """
-    pass
+    id_equipo = models.ForeignKey(
+        'Equipo',
+        on_delete = models.CASCADE,
+        help_text = 'Nombre del equipo',
+        verbose_name = 'Id_delequipo',
+    )
+
+    class Meta:
+        abstract = True
 
 class Jugador(models.Model):
     """Modelo que registra los datos de un jugador
@@ -29,4 +56,31 @@ class Jugador(models.Model):
     - nombre (varchar)
     - numero (varchar)
     """
-    pass
+    apellido = models.CharField(
+        max_length = 80,
+        help_text = 'Apellido del jugador',
+        verbose_name = 'Apellido'
+    )
+
+    nombre = models.CharField(
+        max_length = 80,
+        blank = True,
+        null=True,
+        help_text = 'Nombre del jugador',
+        verbose_name = 'Nombre'
+    )
+
+    numero = models.PositiveIntegerField(
+        default = 0,
+        blank = True,
+        null=True,
+        help_text = 'Numero de camiseta del jugador',
+        verbose_name = 'Numero'
+    )
+
+    def __str__(self):
+        return self.apellido, self.nombre
+
+    class Meta:
+        verbose_name = 'Jugador'
+        verbose_name_plural = 'Jugadores'

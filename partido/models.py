@@ -1,6 +1,10 @@
 """ Modelos para la APP partido """
-
+# Django Imports
 from django.db import models
+
+# Project Imports
+from equipo.models import Equipo, Jugador
+from campeonato.models import Campeonato
 
 
 class Partido(models.Model):
@@ -12,6 +16,7 @@ class Partido(models.Model):
     """
     id_encuentro = models.ForeignKey(
         'Encuentro',
+        default = 0,
         on_delete = models.CASCADE,
         help_text = 'Datos del encuentro',
         verbose_name = 'Encuentro',
@@ -48,35 +53,43 @@ class Encuentro(models.Model):
     - estado (boolean)
     """
     id_equipo1 = models.ForeignKey(
-        'equipo.models.Equipo',
+        Equipo,
+        default = 0,
         on_delete = models.CASCADE,
+        related_name = 'equipo1',
         help_text = 'Datos del equipo que jugó el partido',
         verbose_name = 'Equipo N°1',
     )
 
     id_equipo2 = models.ForeignKey(
-        'equipo.models.Equipo',
+        Equipo,
+        default = 0,
         on_delete = models.CASCADE,
+        related_name = 'equipo2',
         help_text = 'Datos del equipo que jugó el partido',
         verbose_name = 'Equipo N°2',
     )
 
     id_sede = models.ForeignKey(
         'Sede',
+        default = '',
         on_delete = models.CASCADE,
         help_text = 'Sede en la que se jugó el encuentro',
         verbose_name = 'Sede',
     )
 
     id_campeonato = models.ForeignKey(
-        'campeonato.models.Campeonato',
+        Campeonato,
+        default = 0,
         on_delete = models.CASCADE,
         help_text = 'Nombre del campeonato que se está jugando',
         verbose_name = 'Campeonato',
     )
 
     fecha_encuentro = models.DateField(
-        verbose_name = 'Fecha del Encuentro,
+        blank = True,
+        null=True,
+        verbose_name = 'Fecha del Encuentro',
         help_text = 'Fecha en la que se jugó el partido',
     )
 
@@ -87,6 +100,7 @@ class Encuentro(models.Model):
     )
 
     estado = models.CharField(
+        default = 'P',
         max_length = 1,
         choices = ESTADOS,
     )
@@ -104,6 +118,7 @@ class Sede(models.Model):
     - nombre (charfield)
     """
     nombre_sede = models.CharField(
+        default = '',
         max_length = 80, 
         help_text = 'Sede donde se juega el partido',
         verbose_name = 'Nombre Sede',
@@ -123,7 +138,8 @@ class Goles(models.Model):
     - id_partido (FK partido)
     """
     id_jugador = models.ForeignKey(
-        'equipo.models.Jugador',
+        Jugador,
+        default = 0,
         on_delete = models.CASCADE,
         help_text = 'Jugador',
         verbose_name = 'Gol anotado por el jugador',
@@ -131,6 +147,7 @@ class Goles(models.Model):
 
     id_partido = models.ForeignKey(
         'Partido',
+        default = 0,
         on_delete = models.CASCADE,
         help_text = 'Partido donde se convirtio el gol',
         verbose_name = 'Partido',

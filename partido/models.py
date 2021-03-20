@@ -41,7 +41,6 @@ class Partido(models.Model):
         verbose_name = 'Partido'
         verbose_name_plural = 'Partidos'
 
-
 class Encuentro(models.Model):
     """
     Datos:

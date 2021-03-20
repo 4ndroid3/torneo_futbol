@@ -39,6 +39,8 @@ class Campeonato(models.Model):
     id_equipo = models.ForeignKey(
         Equipo,
         default = 0,
+        blank = True,
+        null = True,
         on_delete = models.CASCADE,
         help_text = 'Nombre del equipo',
         verbose_name = 'Id_delequipo',

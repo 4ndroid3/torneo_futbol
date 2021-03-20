@@ -1,12 +1,11 @@
 # Django Imports
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 
 # Project Imports
 from campeonato.models import Campeonato, Clasificacion
 
 class CampeonatoAdmin(admin.ModelAdmin):
-    list_display = ('nombre_campeonato', 'fecha_inicio', 'descripcion', 'id_equipo',)
+    list_display = ('nombre_campeonato', 'fecha_inicio', 'descripcion',)
     list_filter = ('nombre_campeonato', 'id_equipo',)
     search_fields = ('nombre_campeonato', 'id_equipo',)
 

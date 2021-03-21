@@ -13,6 +13,7 @@ class JugadorAdmin(admin.ModelAdmin):
     list_display = ('apellido', 'nombre', 'numero', 'id_equipo')
     list_filter = ('apellido', 'nombre', 'id_equipo')
     search_fields = ('apellido', 'nombre', 'numero', 'id_equipo')
+    ordering  = ('id_equipo',)
 
 admin.site.register(Equipo, EquipoAdmin)
 admin.site.register(Jugador, JugadorAdmin)

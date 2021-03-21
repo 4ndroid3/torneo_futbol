@@ -43,7 +43,7 @@ class Campeonato(models.Model):
         null = True,
         on_delete = models.CASCADE,
         help_text = 'Nombre del equipo',
-        verbose_name = 'Id_delequipo',
+        verbose_name = 'Equipo',
     )
 
     def __str__(self):
@@ -129,7 +129,7 @@ class Clasificacion(models.Model):
     )
 
     def __str__(self):
-        return self.id_equipo
+        return str(self.id_equipo)
 
     class Meta:
         verbose_name = 'Clasificación'

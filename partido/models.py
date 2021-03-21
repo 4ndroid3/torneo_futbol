@@ -35,7 +35,7 @@ class Partido(models.Model):
     )
 
     def __str__(self):
-        return self.id_encuentro
+        return str(self.id_encuentro)
 
     class Meta:
         verbose_name = 'Partido'
@@ -53,7 +53,7 @@ class Encuentro(models.Model):
     """
     id_equipo1 = models.ForeignKey(
         Equipo,
-        default = 0,
+        default = None,
         on_delete = models.CASCADE,
         related_name = 'equipo1',
         help_text = 'Datos del equipo que jugó el partido',
@@ -62,7 +62,7 @@ class Encuentro(models.Model):
 
     id_equipo2 = models.ForeignKey(
         Equipo,
-        default = 0,
+        default = None,
         on_delete = models.CASCADE,
         related_name = 'equipo2',
         help_text = 'Datos del equipo que jugó el partido',
@@ -71,7 +71,7 @@ class Encuentro(models.Model):
 
     id_sede = models.ForeignKey(
         'Sede',
-        default = '',
+        default = None,
         on_delete = models.CASCADE,
         help_text = 'Sede en la que se jugó el encuentro',
         verbose_name = 'Sede',
@@ -79,7 +79,7 @@ class Encuentro(models.Model):
 
     id_campeonato = models.ForeignKey(
         Campeonato,
-        default = 0,
+        default = None,
         on_delete = models.CASCADE,
         help_text = 'Nombre del campeonato que se está jugando',
         verbose_name = 'Campeonato',
@@ -140,8 +140,8 @@ class Goles(models.Model):
         Jugador,
         default = 0,
         on_delete = models.CASCADE,
-        help_text = 'Jugador',
-        verbose_name = 'Gol anotado por el jugador',
+        help_text = 'Gol anotado por el jugador',
+        verbose_name = 'Jugador',
     )
 
     id_partido = models.ForeignKey(

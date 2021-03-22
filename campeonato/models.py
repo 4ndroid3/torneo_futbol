@@ -13,7 +13,6 @@ class Campeonato(models.Model):
     - nombre (charvar)
     - FechaInicio (datefield)
     - descripcion (text)
-    - id_equipo (FK equipo)
     """
     nombre_campeonato = models.CharField(
         default = '',
@@ -36,18 +35,8 @@ class Campeonato(models.Model):
         verbose_name = 'Descripcion del campeonato'
     )
 
-    id_equipo = models.ForeignKey(
-        Equipo,
-        default = 0,
-        blank = True,
-        null = True,
-        on_delete = models.CASCADE,
-        help_text = 'Nombre del equipo',
-        verbose_name = 'Equipo',
-    )
-
     def __str__(self):
-        return self.nombre_campeonato
+        return str(self.nombre_campeonato)
 
     class Meta:
         verbose_name = 'Campeonato'

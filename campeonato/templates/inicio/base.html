@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'campeonato/css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'campeonato/css/estilos.css' %}">
+    <title>Torneos de Futbol</title>
+</head>
+<body>
+    <div style="background-color: brown;">
+        <h1>Torneos de Futbol 5</h1>
+    </div>
+    <div style="background-color: grey;">
+        <!-- Contenido Dinamico -->
+        {% block content %}
+
+        {% endblock %}
+        <!-- Fin del contenido Dinamico -->
+    </div>
+    
+</body>
+</html>

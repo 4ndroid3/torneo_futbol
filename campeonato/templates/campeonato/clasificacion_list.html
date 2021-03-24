@@ -1,3 +1,12 @@
 {%for x in object_list%}
-<h1>{{ x }}, PK: {{ x.pk }}</h1>
+<h2>
+    Equipo: {{ x }}, 
+    Puntos: {{ x.puntos }}, 
+    PJ: {{ x.partidos_jugados }}, 
+    PG: {{ x.victorias }}, 
+    PE: {{ x.derrotas }}, 
+    PP: {{ x.empates }}, 
+    GF: {{ x.goles_favor }}, 
+    GC: {{ x.goles_contra }}
+</h2>
 {%endfor%}

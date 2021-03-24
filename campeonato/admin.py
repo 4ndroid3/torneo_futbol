@@ -13,6 +13,7 @@ class ClasificacionAdmin(admin.ModelAdmin):
     list_display = ('id_equipo', 'id_campeonato', 'puntos', 'partidos_jugados')
     list_filter = ('id_equipo', 'id_campeonato',)
     search_fields = ('id_equipo', 'id_campeonato',)
+    ordering = ('-partidos_jugados', '-puntos', '-victorias', '-derrotas')
 
 admin.site.register(Campeonato, CampeonatoAdmin)
 admin.site.register(Clasificacion, ClasificacionAdmin)

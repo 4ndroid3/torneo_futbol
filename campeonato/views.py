@@ -10,4 +10,5 @@ from campeonato.models import Clasificacion
 class CampeonatoList(ListView):
     """ Lista la tabla de clasificacion del campeonato"""
     model = Clasificacion
+    template_name = 'campeonato/templates/campeonato/clasificacion_list.html'
     ordering = 'puntos'

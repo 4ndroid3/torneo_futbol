@@ -9,7 +9,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('campeonato', include('campeonato.urls')),
+    path('campeonato/', include('campeonato.urls')),
 ]
 
 

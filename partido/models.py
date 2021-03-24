@@ -153,7 +153,7 @@ class Goles(models.Model):
     )
 
     def __str__(self):
-        return self.id_jugador
+        return str(self.id_jugador)
 
     class Meta:
         verbose_name = 'Gol'

@@ -1,3 +1,6 @@
+{% extends "inicio/base.html" %}
+{% load static %}
+{% block content %}
 {%for x in object_list%}
 <h2>
     Equipo: {{ x }}, 
@@ -10,3 +13,4 @@
     GC: {{ x.goles_contra }}
 </h2>
 {%endfor%}
+{% endblock %}

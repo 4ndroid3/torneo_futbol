@@ -4,13 +4,13 @@
 from django.urls import path
 
 # Project Imports
-from campeonato.views import CampeonatoList, ClasificacionList
+from campeonato.views import CampeonatoDetail, ClasificacionList
 from partido.views import EncuentroList, GolesList
 
 urlpatterns = [
     path(
         route = '<pk>/',
-        view = CampeonatoList.as_view(),
+        view = CampeonatoDetail.as_view(),
         name = 'campeonato'
     ),
 
@@ -23,7 +23,7 @@ urlpatterns = [
     path(
         route = '<pk>/fixture/', 
         view = EncuentroList.as_view(), 
-        name = 'campeonato'
+        name = 'fixture'
     ),
 
     path(

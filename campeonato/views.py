@@ -8,10 +8,10 @@ from django.views.generic import DetailView
 # Project Imports
 from campeonato.models import Clasificacion, Campeonato
 
-class CampeonatoList(DetailView):
+class CampeonatoDetail(DetailView):
     """ Lista la tabla de clasificacion del campeonato"""
     model = Campeonato
-    template_name = 'campeonato/templates/inicio/index.html'
+    template_name = 'inicio/index.html'
 
 class ClasificacionList(ListView):
     """ Lista la tabla de clasificacion del campeonato"""

@@ -1,3 +1,8 @@
-{%for x in object_list%}
-<h1>{{ x }}, {{ x.id_jugador.id_equipo }}</h1>
+{% extends "inicio/base.html" %}
+{% load static %}
+{% block content %}
+{%for x in lista_goles%}
+<h2>Equipo: {{x.id_jugador__id_equipo__nombre_equipo}}, Jugador: {{ x.id_jugador__apellido }} {{ x.id_jugador__nombre }}, Cantidad: {{ x.cant_goles }}</h2>
 {%endfor%}
+
+{%endblock%}

@@ -1,3 +1,7 @@
+{% extends "inicio/base.html" %}
+{% load static %}
+{% block content %}
 {%for x in object_list%}
-<h1>{{ x }}, Fecha: {{ x.fecha_encuentro }}</h1>
+<h2>{{ x }}, Fecha: {{ x.fecha_encuentro }}, Estado del partido:  {{ x.estado }}</h2>
 {%endfor%}
+{% endblock %}

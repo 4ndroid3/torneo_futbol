@@ -16,10 +16,10 @@
     <div style="background-color: gold;"> 
         <nav>
             <ul>
-                <li><a href="campeonato/1">Campeonatos</a></li>
-                <li><a href="campeonato/1/clasificacion/">Clasificacion</a></li>
-                <li><a href="campeonato/1/fixture/">Fixture</a></li>
-                <li><a href="campeonato/1/goleadores/">Goleadores</a></li>
+                <li><a href="{% url 'campeonato' 1 %}">Campeonatos</a></li>
+                <li><a href="{% url 'clasificacion' 1 %}">Clasificacion</a></li>
+                <li><a href="{% url 'fixture' 1 %}">Fixture</a></li>
+                <li><a href="{% url 'goleadores' 1 %}">Goleadores</a></li>
             </ul>
         </nav>
     </div>

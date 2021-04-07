@@ -4,10 +4,15 @@
 from django.urls import path
 
 # Project Imports
-from campeonato.views import CampeonatoDetail, ClasificacionList
+from campeonato.views import CampeonatoDetail, ClasificacionList, CampeonatoList
 from partido.views import EncuentroList, GolesList
 
 urlpatterns = [
+    path(
+        route = '',
+        view = CampeonatoList.as_view(),
+        name = 'campeonato_list'
+    ),
     path(
         route = '<pk>/',
         view = CampeonatoDetail.as_view(),

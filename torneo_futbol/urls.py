@@ -12,7 +12,7 @@ from campeonato import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('campeonato/', include('campeonato.urls')),
+    path('', include('campeonato.urls')),
 ]
 
 

@@ -1,6 +1,9 @@
 {% extends "inicio/base.html" %}
 {% load static %}
 {% block content %}
-    <h1>Torneos en curso:</h1>
-    <h1>{{object}}</h1>
+{%for x in object_list%}
+<h2>
+    <a href="{{x.id}}">{{x}}</a>
+</h2>
+{%endfor%}
 {% endblock %}

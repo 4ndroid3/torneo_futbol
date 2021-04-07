@@ -11,7 +11,7 @@ class EquipoAdmin(admin.ModelAdmin):
 
 class JugadorAdmin(admin.ModelAdmin):
     list_display = ('apellido', 'nombre', 'numero', 'id_equipo')
-    list_filter = ('apellido', 'nombre', 'id_equipo')
+    list_filter = ('id_equipo',)
     search_fields = ('apellido', 'nombre', 'numero', 'id_equipo')
     ordering  = ('id_equipo',)
 

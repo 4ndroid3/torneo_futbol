@@ -1,6 +1,7 @@
 """ Modelos para la APP equipo """
 
 from django.db import models
+from django.db.models.signals import pre_save
 
 
 class Equipo(models.Model):
@@ -31,22 +32,6 @@ class Equipo(models.Model):
     class Meta:
         verbose_name = 'Equipo'
         verbose_name_plural = 'Equipos'
-
-# class Jugador_Equipo(models.Model):
-#     """Modelo intermedio para vincular a un jugador con su equipo
-    
-#     Datos:
-#     - id_equipo (FK equipo)
-#     """
-#     id_equipo = models.ForeignKey(
-#         'Equipo',
-#         on_delete = models.CASCADE,
-#         help_text = 'Nombre del equipo',
-#         verbose_name = 'Equipo',
-#     )
-
-#     class Meta:
-#         abstract = True
 
 class Jugador(models.Model):
     """Modelo que registra los datos de un jugador
@@ -84,7 +69,7 @@ class Jugador(models.Model):
         blank = True,
         null=True,
         help_text = 'Numero de camiseta del jugador',
-        verbose_name = 'Numero'
+        verbose_name = 'Numero',
     )
 
     def __str__(self):
@@ -94,3 +79,12 @@ class Jugador(models.Model):
     class Meta:
         verbose_name = 'Jugador'
         verbose_name_plural = 'Jugadores'
+
+def check_if_unique(sender, instance, *args, **kwargs):
+    if Jugador.objects.filter(numero=instance.numero):
+        print('Ya existe')
+        return
+    else:
+        print('todo ok')
+
+pre_save.connect(check_if_unique, sender=Jugador)

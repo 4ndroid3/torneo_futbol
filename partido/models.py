@@ -1,10 +1,11 @@
 """ Modelos para la APP partido """
 # Django Imports
 from django.db import models
+from django.db.models.signals import post_save
 
 # Project Imports
 from equipo.models import Equipo, Jugador
-from campeonato.models import Campeonato
+from campeonato.models import Campeonato, Clasificacion
 
 
 class Partido(models.Model):
@@ -158,3 +159,62 @@ class Goles(models.Model):
     class Meta:
         verbose_name = 'Gol'
         verbose_name_plural = 'Goles'
+
+
+def anotar_puntos(sender, instance, *args, **kwargs):
+    equipo1 = Clasificacion.objects.get(id_equipo=instance.id_encuentro.id_equipo1)
+    equipo2 = Clasificacion.objects.get(id_equipo=instance.id_encuentro.id_equipo2)
+
+    if instance.goles_eq1 > instance.goles_eq2:
+
+        equipo1.puntos = equipo1.puntos + 3
+        equipo1.partidos_jugados = equipo1.partidos_jugados + 1
+        equipo2.partidos_jugados = equipo2.partidos_jugados + 1
+        equipo1.victorias = equipo1.victorias + 1
+        equipo2.derrotas = equipo2.derrotas + 1
+        equipo1.goles_favor = equipo1.goles_favor + instance.goles_eq1
+        equipo2.goles_favor = equipo2.goles_favor + instance.goles_eq2
+        equipo1.goles_contra = equipo1.goles_contra + instance.goles_eq2
+        equipo2.goles_contra = equipo2.goles_contra + instance.goles_eq1
+
+        equipo1.save()
+        equipo2.save()
+
+    elif instance.goles_eq1 < instance.goles_eq2:
+
+        equipo2.puntos = equipo2.puntos + 3
+        equipo2.partidos_jugados = equipo2.partidos_jugados + 1
+        equipo1.partidos_jugados = equipo1.partidos_jugados + 1
+        equipo2.victorias = equipo2.victorias + 1
+        equipo2.derrotas = equipo2.derrotas + 1
+        equipo2.goles_favor = equipo2.goles_favor + instance.goles_eq2
+        equipo1.goles_favor = equipo1.goles_favor + instance.goles_eq1
+        equipo2.goles_contra = equipo2.goles_contra + instance.goles_eq1
+        equipo1.goles_contra = equipo1.goles_contra + instance.goles_eq2
+
+        equipo2.save()
+        equipo1.save()
+    
+    else:
+        equipo1.puntos = equipo1.puntos + 1
+        equipo2.puntos = equipo2.puntos + 1
+        equipo1.partidos_jugados = equipo1.partidos_jugados + 1
+        equipo2.partidos_jugados = equipo2.partidos_jugados + 1
+        equipo1.empates = equipo1.empates + 1
+        equipo2.empates = equipo2.empates + 1
+        equipo1.goles_favor = equipo1.goles_favor + instance.goles_eq1
+        equipo2.goles_favor = equipo2.goles_favor + instance.goles_eq2
+        equipo1.goles_contra = equipo1.goles_contra + instance.goles_eq2
+        equipo2.goles_contra = equipo2.goles_contra + instance.goles_eq1
+
+        equipo1.save()
+        equipo2.save()
+
+    #import pdb; pdb.set_trace()
+
+    """
+    instance.id_encuentro.id_equipo1
+    instance.id_encuentro.id_equipo2
+    """
+
+post_save.connect(anotar_puntos, sender=Partido)

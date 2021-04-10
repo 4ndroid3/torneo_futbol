@@ -6,8 +6,7 @@ from partido.models import Partido, Encuentro, Sede, Goles
 
 class PartidoAdmin(admin.ModelAdmin):
     list_display = ('id_encuentro', 'goles_eq1', 'goles_eq2')
-    list_filter = ('id_encuentro',)
-    search_fields = ('id_encuentro',)
+    list_filter = ('id_encuentro__id_equipo1','id_encuentro__id_equipo2')
 
 class EncuentroAdmin(admin.ModelAdmin):
     list_display = ('id_equipo1', 'id_equipo2', 'id_sede', 'id_campeonato', 'fecha_encuentro', 'estado')
